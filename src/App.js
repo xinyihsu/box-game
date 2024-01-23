@@ -4,6 +4,7 @@ import './App.css';
 
 
 export default function App() {
+  const [player, setPlayer] = useState("");
   const [level, setLevel] = useState(0);
   const [position, setPosition] = useState(BoardList[level].initPos);
   const [board, setBoard] = useState(deepCloneArray(BoardList[level].board));
@@ -64,7 +65,6 @@ export default function App() {
     if (board[endPosX][endPosY] !== 'B') ifFinish = false;
   })
   if (ifFinish) {
-    console.log(BoardList[level].board);
     return (
       <>
       <h1>win</h1>
@@ -82,6 +82,24 @@ export default function App() {
   function Restart() {
     setBoard(deepCloneArray(BoardList[level].board));
     setPosition(BoardList[level].initPos);
+  }
+
+  if (player === "") {
+    let tempName = "admin";
+
+    return (
+      <>
+      <label>
+        Input your name : 
+        <input type='text' defaultValue={tempName}
+          onChange={e => tempName = e.target.value}/>
+      </label>
+      <button onClick={() => setPlayer(tempName)}>submit</button>
+      </>
+    );
+  }
+  else {
+    console.log(player);
   }
 
   return (
