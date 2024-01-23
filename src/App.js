@@ -6,7 +6,7 @@ import './App.css';
 export default function App() {
   const [level, setLevel] = useState(0);
   const [position, setPosition] = useState(BoardList[level].initPos);
-  const [board, setBoard] = useState(BoardList[level].board);
+  const [board, setBoard] = useState(deepCloneArray(BoardList[level].board));
   //let theBoard = BoardList[level].board;
   const endPos = BoardList[level].endPos;
   let [x, y] = position;
@@ -46,20 +46,18 @@ export default function App() {
       setPosition([newX, newY]);
     } 
     
-    console.log('move', BoardList[level].board);
+    //console.log('move', BoardList[level].board);
   };
 
   useEffect(() => {
-    // 添加事件监听器
     document.addEventListener('keydown', handleKeyDown);
 
-    // 在组件卸载时移除事件监听器
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [x, y]);
 
-  //compute win
+  //compute finish
   let ifFinish = true;
   endPos.map((pos) => {
     const [endPosX, endPosY] = pos;
@@ -77,12 +75,12 @@ export default function App() {
 
   function NextLevel() {
     setLevel(level + 1);
-    setBoard(BoardList[level + 1].board);
+    setBoard(deepCloneArray(BoardList[level + 1].board));
     setPosition(BoardList[level + 1].initPos);
   }
 
   function Restart() {
-    setBoard(BoardList[level].board);
+    setBoard(deepCloneArray(BoardList[level].board));
     setPosition(BoardList[level].initPos);
   }
 
@@ -101,19 +99,20 @@ export default function App() {
           {rowValue.map((colValue, colIndex) => {
             const squareIndex = rowIndex * 3 + colIndex;
             
-            let name;
+            let name = '';
             if (colValue === 'X') name ='wall';
             else if (colValue === 'O') name = 'road';
+            else if (colValue === 'B') name = 'box';
             
             endPos.map((pos) => {
               const [endPosX, endPosY] = pos;
               if (rowIndex === endPosX && colIndex === endPosY) {
-                name = 'end';
+                if (colValue === 'B') name = 'box-success';
+                else name = 'end';
               }
             })
             
-            if (colValue === 'B') name = 'box';
-            else if (rowIndex === x && colIndex === y) name = 'person';
+            if (rowIndex === x && colIndex === y) name = 'person';
             
             if (name === 'end') {
               return (
@@ -131,6 +130,9 @@ export default function App() {
   );
 }
 
+function deepCloneArray(arr) {
+  return JSON.parse(JSON.stringify(arr));
+}
 
 // function Board(type) {
 //   const theBoard = [

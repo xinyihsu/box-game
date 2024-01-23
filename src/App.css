@@ -47,7 +47,7 @@
   display: table;
 }
 
-.wall, .box, .road, .person, .end {
+.wall, .box, .box-success, .road, .person, .end {
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -67,6 +67,10 @@
 
 .box {
   background-color: darkgoldenrod;
+}
+
+.box-success  {
+  background-color: rgb(184, 75, 11);
 }
 
 .road {
