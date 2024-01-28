@@ -98,9 +98,6 @@ export default function App() {
       </>
     );
   }
-  else {
-    console.log(player);
-  }
 
   return (
     <>
