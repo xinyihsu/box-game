@@ -67,6 +67,7 @@ export default function App() {
     }, 1000);
     return () => {
       clearInterval(timer);
+      console.log("clean");
     };
   }, []);
 
@@ -79,6 +80,8 @@ export default function App() {
   if (ifFinish) {
     //finish the game
     if (level === 2) {
+      setLevel(pre => pre + 1);
+      console.log(level);
       SetLocalS(player, count);
       return (
         <h3>win</h3>
@@ -116,6 +119,12 @@ export default function App() {
       </label>
       <button onClick={() => {setPlayer(tempName); setCount(0);}}>submit</button>
       </>
+    );
+  }
+
+  if (level === 3) {
+    return (
+      <h1>rank table</h1>
     );
   }
 
