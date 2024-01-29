@@ -125,6 +125,7 @@ export default function App() {
     return (
       <>
       <h1>rank table</h1>
+      <RankTable />
       </>
     );
   }
@@ -218,11 +219,13 @@ function SetLocalS(name, count) {
 function RankTable() {
   const rank = JSON.parse(localStorage.getItem("rank")) || [];
 
-  // return (
-  //   <>
-  //   {rank.map((temp, index) => (
-  //     <div id=`ranktable-${index}`>{temp.name}</div>
-  //   ))}
-  //   </>
-  // );
+  return (
+    <>
+    <ol key="ranktable">
+    {rank.map((temp, index) => (
+      <li id={`ranktable-${index}`}><b>{temp.name}</b> : {temp.time} sec</li>
+    ))}
+    </ol>
+    </>
+  );
 }
