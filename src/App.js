@@ -4,6 +4,7 @@ import './App.css';
 
 
 export default function App() {
+  const [inputValue, setInputValue] = useState("admin");
   const [count, setCount] = useState(0);
   const [player, setPlayer] = useState("");
   const [level, setLevel] = useState(2);
@@ -108,16 +109,14 @@ export default function App() {
   }
 
   if (player === "") {
-    let tempName = "admin";
-
     return (
       <>
       <label>
         Input your name : 
-        <input id='user-name' type='text' defaultValue={tempName}
-          onChange={e => tempName = e.target.value}/>
+        <input id='user-name' type='text' value={inputValue}
+          onChange={e => setInputValue(e.target.value)}/>
       </label>
-      <button onClick={() => {setPlayer(tempName); setCount(0);}}>submit</button>
+      <button onClick={() => {setPlayer(inputValue); setCount(0);}}>submit</button>
       </>
     );
   }
