@@ -124,7 +124,9 @@ export default function App() {
 
   if (level === 3) {
     return (
+      <>
       <h1>rank table</h1>
+      </>
     );
   }
 
@@ -200,5 +202,28 @@ function SetLocalS(name, count) {
     rank = [...rank, newData];
   }
 
+  //sort the rank ? can impriment
+  for (let i = 0; i < rank.length; i++) {
+    for (let j = i; j < rank.length - 1; j++) {
+      if (rank[j].time > rank[j + 1].time) {
+        let temp = rank[j];
+        rank[j] = rank[j + 1];
+        rank[j + 1] = temp;
+      }
+    }
+  }
+
   localStorage.setItem("rank", JSON.stringify(rank));
+}
+
+function RankTable() {
+  const rank = JSON.parse(localStorage.getItem("rank")) || [];
+
+  // return (
+  //   <>
+  //   {rank.map((temp, index) => (
+  //     <div id=`ranktable-${index}`>{temp.name}</div>
+  //   ))}
+  //   </>
+  // );
 }
