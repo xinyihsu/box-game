@@ -4,8 +4,9 @@ import './App.css';
 
 
 export default function App() {
+  const [count, setCount] = useState(0);
   const [player, setPlayer] = useState("");
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(2);
   const [position, setPosition] = useState(BoardList[level].initPos);
   const [board, setBoard] = useState(deepCloneArray(BoardList[level].board));
   //let theBoard = BoardList[level].board;
@@ -58,6 +59,17 @@ export default function App() {
     };
   }, [x, y]);
 
+  //? not to calculate input name time
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setCount((pre) => (pre + 1));
+      console.log("time");
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   //compute finish
   let ifFinish = true;
   endPos.map((pos) => {
@@ -65,12 +77,20 @@ export default function App() {
     if (board[endPosX][endPosY] !== 'B') ifFinish = false;
   })
   if (ifFinish) {
-    return (
-      <>
-      <h1>win</h1>
-      <button onClick={() => NextLevel()}>Next Level</button>
-      </>
-    );
+    //finish the game
+    if (level === 2) {
+      SetLocalS(player, count);
+      return (
+        <h3>win</h3>
+      );
+    }
+    NextLevel();
+    // return (
+    //   <>
+    //   <h1>win</h1>
+    //   <button onClick={() => NextLevel()}>Next Level</button>
+    //   </>
+    // );
   }
 
   function NextLevel() {
@@ -91,10 +111,10 @@ export default function App() {
       <>
       <label>
         Input your name : 
-        <input type='text' defaultValue={tempName}
+        <input id='user-name' type='text' defaultValue={tempName}
           onChange={e => tempName = e.target.value}/>
       </label>
-      <button onClick={() => setPlayer(tempName)}>submit</button>
+      <button onClick={() => {setPlayer(tempName); setCount(0);}}>submit</button>
       </>
     );
   }
@@ -102,6 +122,7 @@ export default function App() {
   return (
     <>
     <div className='description'>
+      <div>{count}</div>
       <h1>Level {level + 1}</h1>
       <div className='box'></div><h3>box</h3>
       <div className='person'></div><h3>person</h3>
@@ -149,18 +170,26 @@ function deepCloneArray(arr) {
   return JSON.parse(JSON.stringify(arr));
 }
 
-// function Board(type) {
-//   const theBoard = [
-//     ['X', 'X', 'X', 'X', 'X', 'X'],
-//     ['X', 'O', 'O', 'O', 'O', 'X'],
-//     ['X', 'O', 'O', 'O', 'O', 'X'],
-//     ['X', 'O', 'B', 'O', 'O', 'X'],
-//     ['X', 'O', 'O', 'O', 'O', 'X'],
-//     ['X', 'X', 'X', 'X', 'X', 'X']
-//   ];
+function SetLocalS(name, count) {
+  let rank = JSON.parse(localStorage.getItem("rank")) || [];
 
-//   let personPos = [3, 2];
+  //detect if dulplicate
+  let ifDulpli = false;
+  rank.map((temp) => {
+    if (temp.name === name && temp.time === count) {
+      ifDulpli = true;
+      console.log("same.");
+    } else {
+      console.log("different.");
+    }
+  })
+  if (!ifDulpli) {
+    let newData = {
+      name: name,
+      time: count
+    };
+    rank = [...rank, newData];
+  }
 
-//   if (type === 'board') return theBoard;
-//   else if (type === 'person') return personPos;
-// }
+  localStorage.setItem("rank", JSON.stringify(rank));
+}
