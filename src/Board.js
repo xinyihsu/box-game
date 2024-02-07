@@ -1,6 +1,20 @@
 export const BoardList = [
     {
         board: [
+            ['X', 'X', 'X', 'X', 'X'],
+            ['X', 'O', 'O', 'O', 'X'],
+            ['X', 'O', 'B', 'O', 'X'],
+            ['X', 'O', 'B', 'O', 'X'],
+            ['X', 'X', 'X', 'X', 'X']
+        ],
+        endPos : [
+            [2, 1],
+            [3, 1]
+        ],
+        initPos: [2, 3]
+    },
+    {
+        board: [
             ['X', 'X', 'X', 'X', 'X', 'X'],
             ['X', 'O', 'O', 'O', 'O', 'X'],
             ['X', 'O', 'O', 'O', 'O', 'X'],
@@ -26,20 +40,6 @@ export const BoardList = [
         endPos : [
             [1, 2],
             [3, 4]
-        ],
-        initPos: [2, 3]
-    },
-    {
-        board: [
-            ['X', 'X', 'X', 'X', 'X'],
-            ['X', 'O', 'O', 'O', 'X'],
-            ['X', 'O', 'B', 'O', 'X'],
-            ['X', 'O', 'B', 'O', 'X'],
-            ['X', 'X', 'X', 'X', 'X']
-        ],
-        endPos : [
-            [2, 1],
-            [3, 1]
         ],
         initPos: [2, 3]
     },

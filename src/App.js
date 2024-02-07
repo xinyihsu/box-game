@@ -7,7 +7,7 @@ export default function App() {
   const [inputValue, setInputValue] = useState("admin");
   const [count, setCount] = useState(0);
   const [player, setPlayer] = useState("");
-  const [level, setLevel] = useState(2);
+  const [level, setLevel] = useState(0);
   const [position, setPosition] = useState(BoardList[level].initPos);
   const [board, setBoard] = useState(deepCloneArray(BoardList[level].board));
   //let theBoard = BoardList[level].board;
