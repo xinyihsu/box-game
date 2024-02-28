@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { BoardList } from './Board.js';
 import './App.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBoxOpen, faBox, faPerson } from '@fortawesome/free-solid-svg-icons'
 
 export default function App() {
   const [inputValue, setInputValue] = useState("admin");
@@ -135,8 +136,8 @@ export default function App() {
     <div className='description'>
       <div>{count}</div>
       <h1>Level {level + 1}</h1>
-      <div className='box'></div><h3>box</h3>
-      <div className='person'></div><h3>person</h3>
+      <div className='box'><FontAwesomeIcon icon={faBoxOpen} /></div><h3>box</h3>
+      <div className='person'><FontAwesomeIcon icon={faPerson} /></div><h3>person</h3>
       <div className='end'>X</div><h3>end</h3>
       <button onClick={() => Restart()}>Restart</button>
     </div>
@@ -166,9 +167,26 @@ export default function App() {
                 <div key={`square-${squareIndex}`} className={name}>X</div>
               )
             }
-            return (
-              <div key={`square-${squareIndex}`} className={name}></div>
-            )
+            else if (name === 'box-success') {
+              return (
+                <div key={`square-${squareIndex}`} className={name}><FontAwesomeIcon icon={faBox} /></div>
+              )
+            }
+            else if (name === 'person') {
+              return (
+                <div key={`square-${squareIndex}`} className={name}><FontAwesomeIcon icon={faPerson} /></div>
+              )
+            }
+            else if (name === 'box') {
+              return (
+                <div key={`square-${squareIndex}`} className={name}><FontAwesomeIcon icon={faBoxOpen} /></div>
+              )
+            }
+            else {
+              return (
+                <div key={`square-${squareIndex}`} className={name}></div>
+              )
+            }
           })}
         </div>
       ))}

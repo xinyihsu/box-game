@@ -53,8 +53,6 @@
   font-weight: bold;
   line-height: 34px;
   height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
   padding: 0;
   text-align: center;
   width: 34px;
@@ -66,11 +64,11 @@
 }
 
 .box {
-  background-color: darkgoldenrod;
+  color: rgb(49, 37, 5);
 }
 
 .box-success  {
-  background-color: rgb(184, 75, 11);
+  color: rgb(184, 75, 11);
 }
 
 .road {
@@ -78,7 +76,8 @@
 }
 
 .person {
-  background-color: bisque;
+  color:rgb(240, 125, 18);
+  border-radius: 80%;
 }
 
 .end {
